@@ -130,6 +130,15 @@ function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+getRandomInteger(1,16)
+/* console.log(getRandomInteger(1,16)) */
+
+function generateBomb (1,16){
+    let bombList = [];
+}
+
+
+
 
 
 
