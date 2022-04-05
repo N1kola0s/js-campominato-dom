@@ -84,6 +84,11 @@ main{
     color:white;
 }
 
+.active_red{
+    background-color: red;
+    color:white;
+}
+
 /* FOOTER */
 
 footer {

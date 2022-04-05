@@ -29,9 +29,13 @@ quando si clicca su una bomba e finisce la partita, il software scopre tutte le 
 
 
 
+
 //dichiaro una variabile che richiami button 
 
 const btn = document.getElementById ("play");
+
+//dichiaro una variabile in cui assegnerò la lista dei numeri delle bombe generate 
+let bombList;
 
 //eseguo una funzione al suo click che generi tre griglie differenti in base al livello della difficoltà
 
@@ -42,24 +46,35 @@ btn.addEventListener ("click", function GenerateGrid(selector){
 
     //dichiaro una variabile in cui andrà il valore contenuto all'interno del mio selettore della difficoltà
 
-    let difficult = document.querySelector(".selection").value ;
+    const difficult = document.querySelector(".selection").value ;
+     
 
 
     //imposto una condizione in cui stabilisco che tipo di griglia deve essere generata in base ai diversi livelli di difficoltà 
     if (difficult == "Easy"){
         
+        //invoco la funzione che genera la mia griglia
         generateGrid(".cells", "div", "cell", 100, "easy_grid");
-        selectElements (".cell", "active")
-        
-        
-        
-        
 
+        //invoco la funzione che seleziona le mie celle e assegna loro determinate caratteristiche con delle classi
+        selectElements (".cell", "active", "active_red")
+
+        //invoco la funzione che genera una lista di bombe
+
+        /* console.log(generateBombList(1, 100)) */
+        bombList = generateBombList(1, 100)
+        console.log(bombList)
+        
+        
     }
 
     else if (difficult == "Medium" ){
         generateGrid(".cells", "div", "cell", 81, "medium_grid");
         selectElements (".cell", "active")
+
+        /* console.log(generateBombList(1, 81)) */
+        bombList = generateBombList(1, 81)
+        console.log(bombList)
         
 
     }
@@ -67,6 +82,10 @@ btn.addEventListener ("click", function GenerateGrid(selector){
     else if (difficult == "Hard") {
         generateGrid(".cells", "div", "cell", 49, "hard_grid");
         selectElements (".cell", "active")
+
+        /* console.log(generateBombList(1, 49)) */
+        bombList = generateBombList(1, 49)
+        console.log(bombList)
 
     
     }
@@ -98,7 +117,7 @@ function generateGrid (selector, tag_name, class_name, limit, level) {
 
 
 //creo una funzione per selezionare le celle contenute nella griglia e modificarle
-function selectElements (selector, active_class){
+function selectElements (selector, active_class, bomb_class){
     //creo una variabile in cui c'è una lista con tutte le mie celle
     //seleziono tutte le celle con querySelectorAll
     const cells = document.querySelectorAll(selector);
@@ -119,8 +138,20 @@ function selectElements (selector, active_class){
 
             /* console.log(this, i); */
 
+            //imposto una condizione affinchè se l'utente clicca su una cella ed il numero è presente nella lista dei numeri generati abbiamo calpestato una bomba. La cella si colora di rosso e la partita termina, altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
+            
+            if(bombList.includes(parseInt(spanElement.innerHTML))){
+                this.classList.add(bomb_class);
+                alert(`BOOOM! Hai calpestato una bomba. La tua partita è terminata`)
+
+            } else {
+
+                this.classList.add(active_class);
+            }
+
+           
             //evidenzio la cella con il colore azzurro alla selezione
-            this.classList.toggle(active_class);
+            /* this.classList.add(active_class); */
         })
     }
 
@@ -142,8 +173,8 @@ function generateBombList (min, max){
     let bombList = [];
     
     //imposto un ciclo che crei i miei 16 numeri random
-   /*  let i = 1; */
-    while(bombList.length < 16){
+
+    while(bombList.length !== 16){
 
         //dichiaro una variabile che inizio con numeri random che vadano da 1 a grandezza della mia griglia
 
@@ -153,18 +184,14 @@ function generateBombList (min, max){
 
         if (!bombList.includes(randomNumb)) {
             bombList.push(randomNumb);
-        }
-
-
-        /* i++ */
+        }  
        
     }
 
     return bombList
 }
 
-generateBombList(1, 100)
-console.log(generateBombList())
 
 
+/* console.log(generateBombList(1, 100)); */
 
