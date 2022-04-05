@@ -51,6 +51,9 @@ btn.addEventListener ("click", function GenerateGrid(selector){
         generateGrid(".cells", "div", "cell", 100, "easy_grid");
         selectElements (".cell", "active")
         
+        
+        
+        
 
     }
 
@@ -158,8 +161,8 @@ function generateBombList (min, max){
     return bombList
 }
 
-generateBombList(1, 16)
-console.log(generateBombList())
+/* generateBombList(1, 16)
+console.log(generateBombList()) */
 
 
 
