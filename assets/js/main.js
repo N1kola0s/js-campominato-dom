@@ -147,7 +147,7 @@ function generateBombList (min, max){
 
         //dichiaro una variabile che inizio con numeri random che vadano da 1 a grandezza della mia griglia
 
-        let randomNumb = getRandomInteger(1, 100);
+        let randomNumb = getRandomInteger(min, max);
 
         //controllo se il numero è già presente nella lista. Nel caso non fosse presente lo pusho nella lista.
 
@@ -163,7 +163,7 @@ function generateBombList (min, max){
     return bombList
 }
 
-generateBombList()
+generateBombList(1, 100)
 console.log(generateBombList())
 
 
