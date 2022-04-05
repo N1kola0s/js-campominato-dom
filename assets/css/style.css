@@ -1,0 +1,93 @@
+/* Commons */
+
+body {
+    background-color: aquamarine;
+}
+
+.header_container, .footer_container {
+    display:flex;
+    justify-content: space-between;
+    width: 80%;
+    margin:auto;
+}
+
+/* HEADER */
+
+header {
+    background-color: white;
+    height: 80px;
+}
+
+.logo_image {
+    height:45px;
+}
+
+.logo_text {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.selection{
+    width: 200px;
+}
+
+img{
+    max-height: 100%;
+}
+
+.btn{
+    background-color: lightgray;
+    color:black;
+    height: 20px;
+    padding: 12px 10px;
+    width:100px;
+}
+
+/* MAIN */
+
+main{
+    height: calc(100vh - 140px);
+}
+
+
+.container {
+    max-width: 500px;
+    margin:auto;
+}
+
+
+.cell {
+    aspect-ratio: 1 / 1;
+    border: 1px solid black;
+    color:black;
+    display:  flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.easy_grid {
+    width: calc(100% / 10);
+}
+
+.medium_grid {
+    width: calc(100% / 9);
+
+}
+
+.hard_grid {
+    width: calc(100% / 7);
+
+}
+
+.active{
+    background-color:cornflowerblue ;
+    color:white;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: white;
+    height: 60px;
+    
+}
