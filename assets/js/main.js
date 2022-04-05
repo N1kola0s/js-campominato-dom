@@ -142,12 +142,12 @@ function generateBombList (min, max){
     let bombList = [];
     
     //imposto un ciclo che crei i miei 16 numeri random
-    /* let i = 1; */
+   /*  let i = 1; */
     while(bombList.length < 16){
 
         //dichiaro una variabile che inizio con numeri random che vadano da 1 a grandezza della mia griglia
 
-        let randomNumb = getRandomInteger(min, max);
+        let randomNumb = getRandomInteger(1, 100);
 
         //controllo se il numero è già presente nella lista. Nel caso non fosse presente lo pusho nella lista.
 
@@ -163,7 +163,7 @@ function generateBombList (min, max){
     return bombList
 }
 
-generateBombList(1, 100)
+generateBombList()
 console.log(generateBombList())
 
 
