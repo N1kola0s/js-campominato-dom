@@ -37,6 +37,12 @@ const btn = document.getElementById ("play");
 //dichiaro una variabile in cui assegnerò la lista dei numeri delle bombe generate 
 let bombList;
 
+//dichiaro una variabile in cui assegnerò la lunghezza della lista celle della griglia
+let gridLimit
+
+//dichiaro una variabile a cui assegnerò la lista dei tentativi
+let attempts;
+
 //eseguo una funzione al suo click che generi tre griglie differenti in base al livello della difficoltà
 
 
@@ -56,36 +62,51 @@ btn.addEventListener ("click", function GenerateGrid(selector){
         //invoco la funzione che genera la mia griglia
         generateGrid(".cells", "div", "cell", 100, "easy_grid");
 
+        /* console.log(generateBombList(1, 100)) */
+        bombList = generateBombList(1, 100);
+
         //invoco la funzione che seleziona le mie celle e assegna loro determinate caratteristiche con delle classi
         selectElements (".cell", "active", "active_red")
 
         //invoco la funzione che genera una lista di bombe
 
-        /* console.log(generateBombList(1, 100)) */
-        bombList = generateBombList(1, 100)
+       
         console.log(bombList)
+        /* console.log(numBombs); */
+        attempts = gridLimit- numBombs ;
+        /* console.log(attempts) */
         
         
     }
 
     else if (difficult == "Medium" ){
         generateGrid(".cells", "div", "cell", 81, "medium_grid");
-        selectElements (".cell", "active")
 
         /* console.log(generateBombList(1, 81)) */
         bombList = generateBombList(1, 81)
+
+        selectElements (".cell", "active", "active_red")
+
+        
         console.log(bombList)
+        attempts = gridLimit- numBombs ;
+        console.log(attempts);
         
 
     }
 
     else if (difficult == "Hard") {
         generateGrid(".cells", "div", "cell", 49, "hard_grid");
-        selectElements (".cell", "active")
 
         /* console.log(generateBombList(1, 49)) */
         bombList = generateBombList(1, 49)
+
+        selectElements (".cell", "active", "active_red")
+
+        
         console.log(bombList)
+        attempts = gridLimit- numBombs ;
+        console.log(attempts)
 
     
     }
@@ -98,6 +119,7 @@ btn.addEventListener ("click", function GenerateGrid(selector){
 function generateGrid (selector, tag_name, class_name, limit, level) {
 
     const cellsElement = document.querySelector(selector)
+    
     //pulisco la griglia inserendo un elemento vuoto nella dom
     cellsElement.innerHTML = " " ;
     
@@ -121,6 +143,10 @@ function selectElements (selector, active_class, bomb_class){
     //creo una variabile in cui c'è una lista con tutte le mie celle
     //seleziono tutte le celle con querySelectorAll
     const cells = document.querySelectorAll(selector);
+    gridLimit = cells.length;
+    /* console.log(gridLimit); */
+    
+
 
     //creo un ciclo for per tutti gli elementi della dom, il limite è la lunghezza della lista di celle. mi permetterà di selezionare le singole celle della lista
 
@@ -136,24 +162,46 @@ function selectElements (selector, active_class, bomb_class){
         //creo una funzione che mi permette di aggiungere al singolo oggetto un evento al click con event listener
         cellItem.addEventListener("click", function(){
 
+            /* console.log(attempts); */
+
             /* console.log(this, i); */
 
             //imposto una condizione affinchè se l'utente clicca su una cella ed il numero è presente nella lista dei numeri generati abbiamo calpestato una bomba. La cella si colora di rosso e la partita termina, altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
             
-            if(bombList.includes(parseInt(spanElement.innerHTML))){
+            
+            
+            if (bombList.includes(parseInt(spanElement.innerHTML))){
+                
                 this.classList.add(bomb_class);
-                alert(`BOOOM! Hai calpestato una bomba. La tua partita è terminata`)
 
-            } else {
+                const clock = setTimeout(function(){
+
+                    alert(`BOOOM! Hai calpestato una bomba. La tua partita è terminata`)
+                    location.reload() 
+                    
+
+                },300 );
+                
+
+            } 
+            
+            //evidenzio la cella con il colore azzurro alla selezione
+            while (attempts !== 0 ) {
 
                 this.classList.add(active_class);
+                
+            } else {
+
+                alert(`HAI VINTO`)
+
             }
 
-           
-            //evidenzio la cella con il colore azzurro alla selezione
-            /* this.classList.add(active_class); */
+                
         })
     }
+    /* console.log(gridLimit);
+    window.gridLimit = gridLimit; */
+    /* return gridLimit; */
 
 }
 
@@ -187,11 +235,10 @@ function generateBombList (min, max){
         }  
        
     }
-
-    return bombList
+    
+    numBombs = bombList.length;
+    /* console.log(numBombs) */
+    return bombList ;
 }
 
-
-
 /* console.log(generateBombList(1, 100)); */
-
